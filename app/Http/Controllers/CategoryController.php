@@ -47,11 +47,29 @@ class CategoryController extends Controller
 
 
         //$category = Article::with('category')->get();
-        $rootCategories = [];
-        $roots = Category::tree()->get()->toTree();
-        foreach($roots as $root){
-            $rootCategories = Category::with('recursiveCategories')->get();
+        $category = [];
+        $categories = Category::all();
+        foreach($categories as $category){
+            $category = Category::where('parent_id', null)->with('recursiveCategories')->get();
         }
+
+        //dd($category);
+
+        return view('marketplace.categories.index', [
+            'categories' => $category
+        ]);
+
+
+
+
+
+
+
+
+
+
+
+
 
         //$category = Category::with('recursiveCategories')->get();
 
@@ -60,7 +78,7 @@ class CategoryController extends Controller
         // }
 
 
-        dd($rootCategories);
+        //dd($root);
 
 
         // $categories = Category::tree()->with('articles')->get()->toTree();

@@ -29,9 +29,13 @@ class CategoryController extends Controller
         //Find the parents where null
         $parents = Category::where('parent_id', null)->get();
         //Get the id's of the parents
+
+
+
         foreach($parents as $parent){
-            //echo  $parent->id;
-            $parentCategories =  Category::where('parent_id',$parent->id)->with('articles')->get();
+            echo  $parent->id;
+            //$parentCategories =  Category::where('parent_id',$parent->id)->with('articles')->get();
+            $parentCategories = Category::where('parent_id', $parent->id)->get();
         }
         return view('marketplace.categories.index', [
             'categories' => $parentCategories

@@ -47,15 +47,20 @@ class CategoryController extends Controller
 
 
         //$category = Article::with('category')->get();
-        $bb = [];
-        $roots = Category::where('parent_id', null)->get();
+        $rootCategories = [];
+        $roots = Category::tree()->get()->toTree();
         foreach($roots as $root){
-            $bb = Category::with('recursiveCategories')->get();
+            $rootCategories = Category::with('recursiveCategories')->get();
         }
 
         //$category = Category::with('recursiveCategories')->get();
 
-        dd($bb);
+        // foreach($rootCategories as $rootCategory){
+        //     echo $rootCategory->title;
+        // }
+
+
+        dd($rootCategories);
 
 
         // $categories = Category::tree()->with('articles')->get()->toTree();

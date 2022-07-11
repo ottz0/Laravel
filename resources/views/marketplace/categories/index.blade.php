@@ -49,7 +49,7 @@
                     @endforeach
                 </tbody>
             </table>
-
+rtrtrt
             {{-- <code style="">{{$categories}}</code> --}}
 
             @foreach ($categories as $category)

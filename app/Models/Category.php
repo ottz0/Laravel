@@ -28,8 +28,8 @@ class Category extends Model
 
     public function articles()
     {
-        //return $this->hasMany(Article::class);
-        return $this->hasManyThrough(Article::class, Category::class);
+        return $this->hasMany(Article::class);
+        //return $this->hasManyThrough(Article::class, Category::class);
     }
 
 

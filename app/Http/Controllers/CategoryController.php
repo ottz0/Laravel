@@ -25,21 +25,45 @@ class CategoryController extends Controller
         //$categories = Category::with('articles')->get();
         //$id = Category::where('parent_id',1)->get();
 
+
+
+        $parentCategories = Category::where('parent_id', null)->get();
         $parentCategories = [];
+
+       foreach($parentCategories as $parentCategory){
+            echo $parentCategory->id;
+            foreach($parentCategory->id as $category){
+                echo $category->id;
+            }
+       };
+
+       //dd($categories);
+
+        // return view('marketplace.categories.index', [
+        //     'categories' => $categories
+        // ]);
+
+
+
+
+
+
+
+       $parentCategories = [];
         //Find the parents where null
         $parents = Category::where('parent_id', null)->get();
         //Get the id's of the parents
 
 
 
-        foreach($parents as $parent){
-            echo  $parent->id;
-            //$parentCategories =  Category::where('parent_id',$parent->id)->with('articles')->get();
-            $parentCategories = Category::where('parent_id', $parent->id)->get();
-        }
-        return view('marketplace.categories.index', [
-            'categories' => $parentCategories
-        ]);
+        // foreach($parents as $parent){
+        //     echo  $parent->id;
+        //     //$parentCategories =  Category::where('parent_id',$parent->id)->with('articles')->get();
+        //     $parentCategories = Category::where('parent_id', $parent->id)->get();
+        // }
+        // return view('marketplace.categories.index', [
+        //     'categories' => $c
+        // ]);
     }
     /**
      * Display the specified resource.

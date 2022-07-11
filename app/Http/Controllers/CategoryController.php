@@ -47,16 +47,16 @@ class CategoryController extends Controller
 
 
         //$category = Article::with('category')->get();
-        $category = [];
-        $categories = Category::all();
-        foreach($categories as $category){
-            $category = Category::where('parent_id', null)->with('recursiveCategories')->get();
+        $categories = [];
+        $parentIds = Category::all();
+        foreach($parentIds as $parentId){
+            $categories = Category::where('parent_id', null)->with('recursiveCategories')->get();
         }
 
-        //dd($category);
+        dd($categories);
 
         return view('marketplace.categories.index', [
-            'categories' => $category
+            'categories' => $categories
         ]);
 
 

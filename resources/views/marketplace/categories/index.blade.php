@@ -4,7 +4,12 @@
         <div class="columns">
             <aside class="column is-2 menu">
 
-                <table border="1">
+
+                @foreach ($categories as $category)
+                    {{$category}}
+                @endforeach
+
+                {{-- <table border="1">
                     <thead>
                         <tr>
                             <td>Category</td>
@@ -19,7 +24,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                </table>
+                </table> --}}
 
 
 

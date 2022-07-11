@@ -5,38 +5,42 @@
             <aside class="column is-2 menu">
 
 
-                @foreach ($categories as $category)
-                    {{$category}}
-                @endforeach
 
-                {{-- <table border="1">
-                    <thead>
-                        <tr>
-                            <td>Category</td>
-                            <td># Articles</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($categories as $category)
-                            <tr>
-                                <td>{{$category->title}}</td>
-                                <td>{{$category->articles->count()}}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table> --}}
+                {{-- @foreach ($categories as $parentCategories)
+                    @foreach($parentCategories as $parentCategory)
+                        {{ $parentCategory }}
+                    @endforeach
+                @endforeach --}}
+
+
+                {{-- {{var_dump($categories)}} --}}
+
+                @foreach($categories as $category)
+                    {{$category->title}}
+                    @foreach ($category->children as $child)
+                        <div style="margin-left:30px;">
+                            {{$child->title}} | {{$child->articles->count()}}
+                        </div>
+                    @endforeach
+                @endforeach
 
 
 
             </aside>
             <div class="column is-10">
-                <h1 class="is-size-1">Marketplace</h1>
+                {{-- <h1 class="is-size-1">Marketplace</h1> --}}
             </div>
         </div>
         <div class="columns">
             <div class="column">
 
-                {{$categories}}
+                @foreach($categories as $category)
+                    @foreach ($category->children as $child)
+                        @foreach ($child->children as $article)
+                            {{$article}}
+                        @endforeach
+                    @endforeach
+                @endforeach
 
 
             </div>

@@ -20,7 +20,7 @@ class Category extends Model
         return 'parent_id';
     }
 
-    public function articlesz()
+    public function recursiveCategories()
     {
         //return $this->hasMany(Product::class, 'parent_id', 'id')->with('children');
         return $this->hasManyOfDescendantsAndSelf(Article::class);

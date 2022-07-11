@@ -26,22 +26,70 @@ class CategoryController extends Controller
         //$id = Category::where('parent_id',1)->get();
 
 
+        //$categories = Category::where('parent_id', null)->get();
+        //$categories = Category::whereNotNull('parent_id')->get();
 
 
+        //$root = Category::where('parent_id', null)->get();
+        // $collection = array();
+        // $roots = Category::where('parent_id', null)->get();
+
+        // foreach($roots as $root){
+        //     $collection[] = Category::where('parent_id', $root->id)->with('articles')->get();
+        // }
+
+        // //dd($collection);
+
+        // return view('marketplace.categories.index', [
+        //     'categories' => $collection
+        // ]);
 
 
+        $categories = Category::tree()->with('articles')->get()->toTree();
 
 
-        $llc = array();
-        $parentCategories = Category::where('parent_id', null)->get();
-
-        foreach($parentCategories as $parentCategory){
-                $llc[] = Category::where('parent_id',$parentCategory->id)->with('articles')->get();
-        };
+        //dd($categories);
 
         return view('marketplace.categories.index', [
-            'categories' => $llc
+            'categories' => $categories
         ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // $categories = array();
+        // $parentCategories = Category::where('parent_id', null)->get();
+
+        // foreach($parentCategories as $parentCategory){
+        //         $categories[] = Category::where('parent_id',$parentCategory->id)->with('articles');
+        // };
+
+        // //dd($categories);
+
+        // return view('marketplace.categories.index', [
+        //     'categories' => $categories
+        // ]);
+
+
+
+
 
 
 

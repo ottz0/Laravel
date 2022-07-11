@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 
@@ -45,14 +46,35 @@ class CategoryController extends Controller
         // ]);
 
 
-        $categories = Category::tree()->with('articles')->get()->toTree();
+        //$category = Article::with('category')->get();
+        $bb = [];
+        $roots = Category::where('parent_id', null)->get();
+        foreach($roots as $root){
+            $bb = Category::with('recursiveCategories')->get();
+        }
+
+        //$category = Category::with('recursiveCategories')->get();
+
+        dd($bb);
+
+
+        // $categories = Category::tree()->with('articles')->get()->toTree();
+        // foreach($categories as $category){
+        //     echo $category->title . '<br />';
+        //     foreach($category->children as $child){
+        //         echo $child->title . '<br />&nbsp;&nbsp;&nbsp;&nbsp;';
+        //         foreach($child->articles as $article){
+        //             echo $article->title . '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+        //         }
+        //     }
+        // };
 
 
         //dd($categories);
 
-        return view('marketplace.categories.index', [
-            'categories' => $categories
-        ]);
+        // return view('marketplace.categories.index', [
+        //     'categories' => $categories
+        // ]);
 
 
 

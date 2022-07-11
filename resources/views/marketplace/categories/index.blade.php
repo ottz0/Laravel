@@ -20,6 +20,9 @@
                     @foreach ($category->children as $child)
                         <div style="margin-left:30px;">
                             {{$child->title}} | {{$child->articles->count()}}
+                            @foreach ($child as $cc)
+                                {{$cc}}
+                            @endforeach
                         </div>
                     @endforeach
                 @endforeach
@@ -34,12 +37,16 @@
         <div class="columns">
             <div class="column">
 
-                @foreach($categories as $category)
+                {{-- @foreach($categories as $category)
                     @foreach ($category->children as $child)
                         @foreach ($child->children as $article)
                             {{$article}}
                         @endforeach
                     @endforeach
+                @endforeach --}}
+
+                @foreach($categories as $category)
+                    <x-category-item :category="$category" />
                 @endforeach
 
 

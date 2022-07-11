@@ -28,30 +28,27 @@ class CategoryController extends Controller
 
 
         $parentCategories = Category::where('parent_id', null)->get();
-        $parentCategories = [];
+        $llc = array();
 
        foreach($parentCategories as $parentCategory){
-            echo $parentCategory->id;
-            foreach($parentCategory->id as $category){
-                echo $category->id;
-            }
+            $llc[] = Category::where('parent_id',$parentCategory->id)->with('articles')->get();
        };
 
-       //dd($categories);
+       //dd($llc);
 
-        // return view('marketplace.categories.index', [
-        //     'categories' => $categories
-        // ]);
-
-
+        return view('marketplace.categories.index', [
+            'categories' => $llc[0]
+        ]);
 
 
 
 
 
-       $parentCategories = [];
+
+
+       //$parentCategories = [];
         //Find the parents where null
-        $parents = Category::where('parent_id', null)->get();
+        //$parents = Category::where('parent_id', null)->get();
         //Get the id's of the parents
 
 

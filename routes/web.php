@@ -20,3 +20,6 @@ use App\Http\Controllers\CategoryController;
 // });
 
 Route::get('/', [CategoryController::class, 'index']);
+
+Route::get('/marketplace', [CategoryController::class, 'index']);
+Route::get('/marketplace/{categories}', [CategoryController::class, 'show']);

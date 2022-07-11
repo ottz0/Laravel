@@ -17,52 +17,26 @@ class CategoryController extends Controller
     {
         //Get whole tree
         //$tree = Category::tree(2)->get();
-
         //$descendants = Category::find(2)->descendants()->get();
         //dd($descendants);
-
-        //$query->whereNull('parent_id');
-
-
         //$c = Category::tree()->get()->toTree();
         //$c = Category::find(1)->articles;
         //$b = Category::withCount('articles')->get();
-
         //$categories = Category::with('articles')->get();
+        //$id = Category::where('parent_id',1)->get();
 
-        $categories = Category::with('articles')->get();
-
-
-        //dd($categories);
-
-
-
-
-        return view('welcome', [
-            'categories' => $categories
+        $parentCategories = [];
+        //Find the parents where null
+        $parents = Category::where('parent_id', null)->get();
+        //Get the id's of the parents
+        foreach($parents as $parent){
+            //echo  $parent->id;
+            $parentCategories =  Category::where('parent_id',$parent->id)->with('articles')->get();
+        }
+        return view('marketplace.categories.index', [
+            'categories' => $parentCategories
         ]);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -71,40 +45,16 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        //$categories = Category::with('articles')->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $categories = Category::whereNotNull('parent_id')->with('articles')->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        //$categories = $subCategories->with('articles')->get();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        //dd($categories);
+
+        return view('marketplace.categories.show', [
+            'categories' => $categories
+        ]);
     }
 }

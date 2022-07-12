@@ -25,138 +25,21 @@ class CategoryController extends Controller
         //$b = Category::withCount('articles')->get();
         //$categories = Category::with('articles')->get();
         //$id = Category::where('parent_id',1)->get();
-
-
         //$categories = Category::where('parent_id', null)->get();
         //$categories = Category::whereNotNull('parent_id')->get();
 
-
-        //$root = Category::where('parent_id', null)->get();
-        // $collection = array();
-        // $roots = Category::where('parent_id', null)->get();
-
-        // foreach($roots as $root){
-        //     $collection[] = Category::where('parent_id', $root->id)->with('articles')->get();
-        // }
-
-        // //dd($collection);
-
-        // return view('marketplace.categories.index', [
-        //     'categories' => $collection
-        // ]);
-
-
-        //$category = Article::with('category')->get();
         $categories = [];
         $parentIds = Category::all();
         foreach($parentIds as $parentId){
-            $categories = Category::where('parent_id', null)->with('recursiveCategories')->get();
+            $categories = Category::where('parent_id', null)->with('recursiveArticles')->get();
         }
 
-        dd($categories);
+        //dd($categories);
 
         return view('marketplace.categories.index', [
             'categories' => $categories
         ]);
 
-
-
-
-
-
-
-
-
-
-
-
-
-        //$category = Category::with('recursiveCategories')->get();
-
-        // foreach($rootCategories as $rootCategory){
-        //     echo $rootCategory->title;
-        // }
-
-
-        //dd($root);
-
-
-        // $categories = Category::tree()->with('articles')->get()->toTree();
-        // foreach($categories as $category){
-        //     echo $category->title . '<br />';
-        //     foreach($category->children as $child){
-        //         echo $child->title . '<br />&nbsp;&nbsp;&nbsp;&nbsp;';
-        //         foreach($child->articles as $article){
-        //             echo $article->title . '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-        //         }
-        //     }
-        // };
-
-
-        //dd($categories);
-
-        // return view('marketplace.categories.index', [
-        //     'categories' => $categories
-        // ]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // $categories = array();
-        // $parentCategories = Category::where('parent_id', null)->get();
-
-        // foreach($parentCategories as $parentCategory){
-        //         $categories[] = Category::where('parent_id',$parentCategory->id)->with('articles');
-        // };
-
-        // //dd($categories);
-
-        // return view('marketplace.categories.index', [
-        //     'categories' => $categories
-        // ]);
-
-
-
-
-
-
-
-
-
-
-
-       //$parentCategories = [];
-        //Find the parents where null
-        //$parents = Category::where('parent_id', null)->get();
-        //Get the id's of the parents
-
-
-
-        // foreach($parents as $parent){
-        //     echo  $parent->id;
-        //     //$parentCategories =  Category::where('parent_id',$parent->id)->with('articles')->get();
-        //     $parentCategories = Category::where('parent_id', $parent->id)->get();
-        // }
-        // return view('marketplace.categories.index', [
-        //     'categories' => $c
-        // ]);
     }
     /**
      * Display the specified resource.
@@ -164,13 +47,19 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($categoryId)
     {
-        //$categories = Category::with('articles')->get();
+        // $categories = Category::where('parent_id', $categoryId)
+        //     ->with(['recursiveArticles' => function($q){
+        //         return $q->limit(8);
+        //     }])
+        //     ->get();
 
-        $categories = Category::whereNotNull('parent_id')->with('articles')->get();
 
-        //$categories = $subCategories->with('articles')->get();
+
+        $categories = Category::where('parent_id', $categoryId)
+            ->with('recursiveArticles')
+            ->get();
 
         //dd($categories);
 

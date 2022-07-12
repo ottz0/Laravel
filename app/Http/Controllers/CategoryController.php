@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 
 class CategoryController extends Controller
@@ -47,7 +48,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($categoryId)
+    public function show($slug)
     {
         // $categories = Category::where('parent_id', $categoryId)
         //     ->with(['recursiveArticles' => function($q){
@@ -57,7 +58,7 @@ class CategoryController extends Controller
 
 
 
-        $categories = Category::where('parent_id', $categoryId)
+        $categories = Category::where('slug', $slug)
             ->with('recursiveArticles')
             ->get();
 

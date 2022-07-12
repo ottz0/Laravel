@@ -13,7 +13,7 @@
                     <tbody>
                         @foreach ($categories as $category)
                             <tr>
-                                <td><a href="/marketplace/{{$category->id}}">{{$category->title}}</a></td>
+                                <td><a href="/marketplace/{{$category->slug}}">{{$category->title}}</a></td>
                                 <td>{{$category->recursiveArticles->count()}}</td>
                             </tr>
                         @endforeach
@@ -25,7 +25,7 @@
                 @foreach($categories as $category)
                 <h2 class="is-size-2">{{$category->title}}</h2>
                 <div class="columns is-multiline">
-                    @foreach ($category->recursiveArticles as $article)
+                    @foreach ($category->recursiveArticles->slice(0,8) as $article)
                         <div class="column is-3">
                         <div class="card">
                             <div class="card-content">

@@ -23,3 +23,4 @@ Route::get('/', [CategoryController::class, 'index']);
 
 Route::get('/marketplace', [CategoryController::class, 'index']);
 Route::get('/marketplace/{categories}', [CategoryController::class, 'show']);
+Route::get('/marketplace/{categories}/{subCategory}', [CategoryController::class, 'subCategory']);

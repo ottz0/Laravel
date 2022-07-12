@@ -75,4 +75,17 @@ class CategoryController extends Controller
             'articles' => $articles
         ]);
     }
+    public function subCategory($categorySlug, $subCategorySlug)
+    {
+
+
+        $parents = Category::tree()->get()->toTree();
+        $subCategories = Category::where('slug', $subCategorySlug)->with('articles')->get();
+
+        dd($subCategories);
+
+        return view('marketplace.categories.sub_category', [
+            'parents' => $parents
+        ]);
+    }
 }

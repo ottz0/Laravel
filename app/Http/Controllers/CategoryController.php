@@ -56,16 +56,23 @@ class CategoryController extends Controller
         //     }])
         //     ->get();
 
+        // $parent = Category::where('slug', $slug)->get();
+        // $parentId = $parent[0]->id;
+        // $categories = Category::where('parent_id', $parentId)
+        //     ->with('articles')
+        //     ->get();
+        // dd($categories);
 
+        //dd($slug);
 
-        $categories = Category::where('slug', $slug)
-            ->with('recursiveArticles')
-            ->get();
-
-        //dd($categories);
-
+        $parents = Category::tree()->get()->toTree();
+        $subCategories = Category::where('slug', $slug)->get();
+        $articles = Category::where('parent_id',$subCategories[0]->id)->with('articles')->get();
+        //dd($subCategories);
         return view('marketplace.categories.show', [
-            'categories' => $categories
+            'parents' => $parents,
+            'subCategories' => $subCategories,
+            'articles' => $articles
         ]);
     }
 }

@@ -26,6 +26,12 @@ class Category extends Model
         //return $this->hasManyOfDescendants(Article::class);
     }
 
+    public function parentArticles()
+    {
+        return $this->hasManyOfDescendants(Category::class);
+        //return $this->hasManyOfDescendants(Article::class);
+    }
+
     public function articles()
     {
         return $this->hasMany(Article::class);

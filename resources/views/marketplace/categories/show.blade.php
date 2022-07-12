@@ -13,22 +13,60 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($categories as $category)
+                    @foreach ($parents as $parent)
                         <tr>
-                            <td><a href="#">{{$category->title}}</a></td>
-                            <td>{{$category->recursiveArticles->count()}}</td>
+                            <td><a href="/marketplace/{{$parent->slug}}">{{$parent->title}}</a></td>
+                            <td>{{$parent->recursiveArticles->count()}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <td>Category</td>
+                        <td># Articles</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($articles as $article)
+                        <tr>
+                            <td><a href="#">{{$article->title}}</a></td>
+                            <td>{{$article->recursiveArticles->count()}}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </aside>
         <div class="column is-10">
-            <div class="column is-10">
-                <h1 class="is-size-1">Marketplace</h1>
-                @foreach($categories as $category)
-                <h2 class="is-size-2">{{$category->title}}</h2>
+            <h1 class="is-size-1">{{$subCategories[0]->title}}</h1>
+
+            @foreach ($articles as $article)
+                <h2 class="is-size-2">{{$article->title}}</h2>
                 <div class="columns is-multiline">
-                    @foreach ($category->recursiveArticles->slice(0,8) as $article)
+                    @foreach ($article->articles->slice(0,8) as $bb)
+                        <div class="column is-3">
+                            <div class="card">
+                                <div class="card-content">
+                                    {{$bb->title}}
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endforeach
+
+
+
+
+
+
+            {{-- <div class="column is-10">
+                <h1 class="is-size-1">Marketplace</h1>
+                @foreach($articles as $article)
+                <h2 class="is-size-2">{{$parent->title}}</h2>
+                <div class="columns is-multiline">
+                    @foreach ($parent->recursiveArticles->slice(0,8) as $article)
                         <div class="column is-3">
                         <div class="card">
                             <div class="card-content">
@@ -44,7 +82,7 @@
                     @endforeach
                 </div>
              @endforeach
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

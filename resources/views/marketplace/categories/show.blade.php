@@ -10,7 +10,7 @@
                     <li>
                         <ul>
                             @foreach($parent->children as $child)
-                                <li><a>{{$child->title}} <span class="tag is-info is-light is-pulled-right">{{$child->recursiveArticles->count()}}</span></a></li>
+                                <li><a href="/marketplace/{{$parent->slug}}/{{$child->slug}}" class="{{ (request()->segment(3) === $child->slug) ? 'is-active' : '' }}">{{$child->title}} <span class="tag is-info is-light is-pulled-right">{{$child->recursiveArticles->count()}}</span></a></li>
                             @endforeach
                         </ul>
                     </li>
@@ -18,7 +18,7 @@
             </ul>
         </aside>
         <div class="column is-9">
-            <h1 class="is-size-1 pb-5">{{$subCategories[0]->title}}</h1>
+            <h1 class="is-size-1 pb-5">{{$categories[0]->title}}</h1>
             @foreach ($articles as $article)
                 <div class="columns">
                     <div class="column">
@@ -45,6 +45,4 @@
         </div>
     </div>
 </div>
-
-
 @endsection

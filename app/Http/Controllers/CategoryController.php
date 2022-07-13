@@ -81,7 +81,7 @@ class CategoryController extends Controller
         $categories = Category::where('slug', $subCategorySlug)->with('articles')->get();
         $articles = Category::where('parent_id', $categories[0]->id)->with('articles')->get();
 
-        dd($categories[0]->id);
+        dd($articles);
 
         return view('marketplace.categories.sub_category', [
             'parents' => $parents,
